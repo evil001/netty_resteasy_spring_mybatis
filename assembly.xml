@@ -1,0 +1,68 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>RELEASE</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <moduleSets>
+        <moduleSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includes>
+                <include>com.qbao:im-api</include>
+                <include>com.qbao:api-service</include>
+                <include>com.qbao:api-dao</include>
+                <include>com.qbao:im-common</include>
+                <include>com.qbao:message</include>
+            </includes>
+        </moduleSet>
+    </moduleSets>
+    <dependencySets>
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>lib</outputDirectory>
+            <unpack>false</unpack>
+            <!--<scope>runtime</scope>-->
+        </dependencySet>
+    </dependencySets>
+    <fileSets>
+
+        <!-- 把项目相关的说明文件，打包进zip文件的根目录 -->
+
+        <fileSet>
+            <directory>${project.basedir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>README*</include>
+                <include>LICENSE*</include>
+                <include>NOTICE*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.outputDirectory}</directory>
+            <outputDirectory>lib/</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}\src\main\resources</directory>
+            <outputDirectory>\resources</outputDirectory>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}\src\main\java</directory>
+            <outputDirectory>\</outputDirectory>
+        </fileSet>
+
+        <!--<fileSet>
+            <directory>${project.basedir}/src/main/java</directory>
+            <includes>
+                <include>com.qbao.im.api.*</include>
+            </includes>
+            <outputDirectory>\</outputDirectory>
+        </fileSet>-->
+    </fileSets>
+</assembly>

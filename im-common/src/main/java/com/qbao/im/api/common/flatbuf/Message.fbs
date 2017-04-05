@@ -1,0 +1,15 @@
+namespace com.qbao.im.api.common.flatbuf;
+
+//服务端收到消息成功0，
+enum MSGSTATUS:int {SERVER_RECEIVER=0,SERVER_SEND=1,CLIENT_RECEIVER=2,CLIENT_SEND=3}
+
+table Message{
+    userId:string(required);
+    netId:int;
+    self:string;
+    dest:string;
+    content:string;
+    platform:string;
+    version:string;
+    status:MSGSTATUS;
+}

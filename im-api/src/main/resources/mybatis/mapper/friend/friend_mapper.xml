@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qbao.im.api.dao.IFriendDao" >
+	<insert id="save" parameterType="Friend" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO ${tabName}
+		<trim prefix="(" suffixOverrides="," suffix=")">
+			<if test="userId != null ">
+				userid,
+			</if>
+			<if test="friendId != null">
+				friendid,
+			</if>
+			<if test="sourceType != null">
+				sourcetype,
+			</if>
+			<if test="remarkName != null and remarkName != ''">
+				remarkname,
+			</if>
+		</trim>
+		<trim prefix="VALUES (" suffixOverrides="," suffix=")">
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="friendId != null">
+				#{friendId},
+			</if>
+			<if test="sourceType != null">
+				#{sourceType},
+			</if>
+			<if test="remarkName != null and remarkName != ''">
+				#{remarkName},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="modify" parameterType="Friend">
+		update ${tabName}
+		<set>
+			<if test="userId != null">
+				userid = #{userId},
+			</if>
+			<if test="friendId != null">
+				friendid = #{friendId},
+			</if>
+			<if test="sourceType != null">
+				sourcetype = #{sourceType},
+			</if>
+			<if test="remarkName != null and remarkName != ''">
+				remarkname = #{remarkName},
+			</if>
+			<where>
+				id = #{id}
+			</where>
+		</set>
+	</update>
+
+	<delete id="del" parameterType="Friend">
+		DELETE FROM ${tabName}
+		<where>
+			id = #{id}
+		</where>
+	</delete>
+
+	<sql id="queryAllFriends">
+		SELECT id,userid userId,friendid friendId,sourcetype sourceType,remarkname remarkName from ${tabName}
+	</sql>
+	<select id="getFriends" resultType="Friend" parameterType="Friend">
+		<include refid="queryAllFriends"/>
+		<where>
+			1 = 1
+			<if test="userId != null">
+				AND userid = #{userId}
+			</if>
+			<if test="friendId != null">
+				AND friendid = #{friendId}
+			</if>
+		</where>
+	</select>
+</mapper>
